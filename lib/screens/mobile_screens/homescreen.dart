@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/global/global.dart';
 import 'package:todo/screens/mobile_screens/contentscreen.dart';
+import 'package:todo/screens/mobile_screens/loginscreen.dart';
 import 'package:todo/screens/mobile_screens/widgets/listwidget.dart';
+import 'package:todo/services/loginservices.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,19 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 15),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Hello,',
                           style: TextStyle(
                             fontSize: 15,
                           ),
                         ),
                         Text(
-                          'cyrdhanushd@gmail.com,',
-                          style: TextStyle(
+                          name!,
+                          style: const TextStyle(
                             fontSize: 17,
                           ),
                         ),
@@ -63,9 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      LoginServices.logOut();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
                     icon: Icon(
-                      CupertinoIcons.search,
+                      Icons.logout_rounded,
                       color: Colors.grey.withAlpha(100),
                     ),
                   ),

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo/firebase_options.dart';
 import 'package:todo/global/global.dart';
-import 'package:todo/screens/mobile_screens/contentscreen.dart';
-import 'package:todo/screens/mobile_screens/homescreen.dart';
-import 'package:todo/screens/mobile_screens/loginscreen.dart';
+import 'package:todo/screens/mobile_screens/wrapper.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.white.withAlpha(0)));
+
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: themeColor,
       ),
       // home: const HomeScreen(),
-      home: const LoginScreen(),
+      // home: const SignUpScreen(),
+      home: const MobileWrapper(),
     );
   }
 }
