@@ -14,7 +14,8 @@ class MobileWrapper extends StatefulWidget {
 class _MobileWrapperState extends State<MobileWrapper> {
   processor() async {
     if (auth.currentUser != null) {
-      DocumentSnapshot doc = await userref.doc(auth.currentUser!.email).get();
+      DocumentSnapshot doc =
+          await usersCollection.doc(auth.currentUser!.email).get();
       name = doc.get('name');
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
@@ -35,7 +36,7 @@ class _MobileWrapperState extends State<MobileWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

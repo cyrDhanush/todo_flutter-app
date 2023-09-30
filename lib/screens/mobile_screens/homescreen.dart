@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/global/global.dart';
+import 'package:todo/helpers/uihelper.dart';
 import 'package:todo/screens/mobile_screens/contentscreen.dart';
 import 'package:todo/screens/mobile_screens/loginscreen.dart';
 import 'package:todo/screens/mobile_screens/widgets/listwidget.dart';
+import 'package:todo/services/firestorefunctions.dart';
 import 'package:todo/services/loginservices.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: themeColor,
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
-                      'C',
-                      style: TextStyle(
+                    child: Text(
+                      name?[0] ?? 'C',
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
@@ -84,12 +86,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
             /// Lists
             Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: 30,
-                padding: EdgeInsets.only(bottom: 100),
-                itemBuilder: (context, i) {
-                  return ListWidget();
+              child: StreamBuilder(
+                stream: FirestoreFunctions.getListStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    );
+                  } else if (snapshot.hasData && (snapshot.data!.size != 0)) {
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: snapshot.data!.size,
+                      padding: EdgeInsets.only(bottom: 100),
+                      itemBuilder: (context, i) {
+                        return ListWidget(
+                          documentSnapshot:
+                              snapshot.data!.docs.toList().elementAt(i),
+                        );
+                      },
+                    );
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No Lists Found !!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white.withAlpha(200),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
                 },
               ),
             ),
@@ -97,7 +130,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () async {
+          String? answer =
+              await UIHelper.askDialogBox(context: context, title: 'List');
+          if (answer != null) {
+            FirestoreFunctions.createList(listname: answer);
+          }
+        },
         backgroundColor: themeColor,
         label: const Text('Create New List'),
         icon: const Icon(

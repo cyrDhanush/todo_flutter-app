@@ -23,7 +23,7 @@ class LoginServices {
     } catch (e) {
       return e.toString();
     }
-    userref.doc(emailid).set({
+    usersCollection.doc(emailid).set({
       'name': name,
     });
     return 'success';
