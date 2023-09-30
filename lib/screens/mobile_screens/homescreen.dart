@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          name!,
+                          name ?? 'Your name',
                           style: const TextStyle(
                             fontSize: 17,
                           ),

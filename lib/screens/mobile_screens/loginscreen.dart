@@ -3,6 +3,7 @@ import 'package:todo/global/global.dart';
 import 'package:todo/helpers.dart';
 import 'package:todo/screens/mobile_screens/homescreen.dart';
 import 'package:todo/screens/mobile_screens/signupscreen.dart';
+import 'package:todo/screens/mobile_screens/wrapper.dart';
 import 'package:todo/services/loginservices.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pop(context);
       if (result == 'success') {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            context, MaterialPageRoute(builder: (context) => MobileWrapper()));
       } else {
         UIHelper.showSnackBar(context: context, content: result);
       }

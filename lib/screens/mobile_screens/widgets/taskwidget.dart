@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:todo/global/global.dart';
 
 class TaskWidget extends StatefulWidget {
-  const TaskWidget({super.key});
+  final int index;
+  final String title;
+  final bool completed;
+  const TaskWidget({
+    super.key,
+    required this.index,
+    required this.title,
+    this.completed = false,
+  });
 
   @override
   State<TaskWidget> createState() => _TaskWidgetState();
@@ -15,7 +23,9 @@ class _TaskWidgetState extends State<TaskWidget> {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
-        color: themeColor.withAlpha(100),
+        color: (widget.completed)
+            ? (Colors.grey.withAlpha(50))
+            : (themeColor.withAlpha(100)),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -26,7 +36,7 @@ class _TaskWidgetState extends State<TaskWidget> {
           ),
           Expanded(
             child: Text(
-              'This is the first task',
+              widget.title,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -36,9 +46,12 @@ class _TaskWidgetState extends State<TaskWidget> {
           SizedBox(
             width: 15,
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
+          ReorderableDragStartListener(
+            index: widget.index,
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.menu),
+            ),
           ),
         ],
       ),
