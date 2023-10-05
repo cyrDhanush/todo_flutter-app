@@ -96,6 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(height: 20),
                       TextField(
                         controller: _namecontroller,
+                        textCapitalization: TextCapitalization.words,
                         decoration: InputDecoration(
                           hintText: 'Your Name',
                           labelText: 'Name',

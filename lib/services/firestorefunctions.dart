@@ -4,7 +4,11 @@ import 'package:todo/global/global.dart';
 class FirestoreFunctions {
   /// to create a list
   static createList({required String listname}) async {
-    await listCollection.add({'listname': listname});
+    await listCollection.add(
+      {
+        'listname': listname,
+      },
+    );
   }
 
   static createTask({

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo/firebase_options.dart';
 import 'package:todo/global/global.dart';
+import 'package:todo/screens/mobile_screens/contentscreen.dart';
+import 'package:todo/screens/mobile_screens/homescreen.dart';
 import 'package:todo/screens/mobile_screens/wrapper.dart';
 
 void main() async {
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
       // home: const HomeScreen(),
       // home: const SignUpScreen(),
       home: const MobileWrapper(),
+      // home: const ContentScreen(),
     );
   }
 }

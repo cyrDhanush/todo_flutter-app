@@ -69,6 +69,7 @@ class UIHelper {
               ),
               TextField(
                 controller: controller,
+                textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
                   labelText: '$title Name',
                   focusedBorder: OutlineInputBorder(
